@@ -1,11 +1,19 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const fs = require('fs');
+const app = express();
+const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const tours = JSON.parse(
+  fs.readFileSync(`${__dirname}/dev-data/tours-simple.json`)
+);
+app.get('/api/v1/tours', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    results: tours.length,
+    tours,
+  });
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
