@@ -34,6 +34,24 @@ app.post('/api/v1/tours', (req, res) => {
   );
 });
 
+app.get('/api/v1/tours/:id', (req, res) => {
+  const { id } = req.params;
+
+  const tour = tours.find((tour) => tour.id == id);
+
+  if (!tour) {
+    res.status(404).json({
+      status: 'failed',
+      message: `No tour with id: ${id}`,
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: { tour },
+  });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
