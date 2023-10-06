@@ -52,6 +52,46 @@ app.get('/api/v1/tours/:id', (req, res) => {
   });
 });
 
+//Update tour
+app.patch('/api/v1/tours/:id', (req, res) => {
+  const { id } = req.params;
+
+  const tour = tours.find((tour) => tour.id == id);
+
+  if (!tour) {
+    res.status(404).json({
+      status: 'failed',
+      message: `No tour with id: ${id}`,
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour: '<Updated tour here>',
+    },
+  });
+});
+
+//Delete Tour
+app.delete('/api/v1/tours/:id', (req, res) => {
+  const { id } = req.params;
+
+  const tour = tours.find((tour) => tour.id == id);
+
+  if (!tour) {
+    res.status(404).json({
+      status: 'failed',
+      message: `No tour with id: ${id}`,
+    });
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
