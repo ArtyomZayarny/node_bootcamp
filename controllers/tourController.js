@@ -4,8 +4,23 @@ const tours = JSON.parse(
     fs.readFileSync(`${__dirname}/../dev-data/tours-simple.json`)
   );
 
-  const getAllTours = (req, res) => {
-    console.log(req.requestTime);
+
+const checkID = (req, res, next, val) => {
+  const { id } = req.params;
+  
+  const tour = tours.find((tour) => tour.id == id);
+
+  if (!tour) {
+    return res.status(404).json({
+      status: 'failed',
+      message: `No tour with id: ${id}`,
+    });
+  }
+  
+  next();
+}
+
+  const getAllTours = (req, res) => { 
     res.status(200).json({
       status: 'success',
       results: tours.length,
@@ -13,18 +28,10 @@ const tours = JSON.parse(
     });
   };
   
-  const getTourById = (req, res) => {
+  const getTour = (req, res) => {
     const { id } = req.params;
-  
     const tour = tours.find((tour) => tour.id == id);
-  
-    if (!tour) {
-      res.status(404).json({
-        status: 'failed',
-        message: `No tour with id: ${id}`,
-      });
-    }
-  
+    
     res.status(200).json({
       status: 'success',
       data: { tour },
@@ -50,17 +57,6 @@ const tours = JSON.parse(
   };
   
   const updateTour = (req, res) => {
-    const { id } = req.params;
-  
-    const tour = tours.find((tour) => tour.id == id);
-  
-    if (!tour) {
-      res.status(404).json({
-        status: 'failed',
-        message: `No tour with id: ${id}`,
-      });
-    }
-  
     res.status(200).json({
       status: 'success',
       data: {
@@ -70,17 +66,6 @@ const tours = JSON.parse(
   };
   
   const deleteTour = (req, res) => {
-    const { id } = req.params;
-  
-    const tour = tours.find((tour) => tour.id == id);
-  
-    if (!tour) {
-      res.status(404).json({
-        status: 'failed',
-        message: `No tour with id: ${id}`,
-      });
-    }
-  
     res.status(204).json({
       status: 'success',
       data: null,
@@ -89,10 +74,11 @@ const tours = JSON.parse(
 
   const tourController = {
     getAllTours,
-    getTourById,
+    getTour,
     createTour,
     updateTour,
-    deleteTour
+    deleteTour,
+    checkID
   }
 
   module.exports = tourController;
