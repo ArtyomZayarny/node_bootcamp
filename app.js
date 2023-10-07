@@ -1,9 +1,8 @@
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
-const port = 3000;
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
+const app = express();
 
 // 1) Middleware
 app.use(morgan('dev'));
@@ -22,9 +21,7 @@ app.use((req, res, next) => {
 // Mountaining routing
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/tours', tourRouter);
-
+ 
  
 // 4 Start server
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+module.exports = app;
