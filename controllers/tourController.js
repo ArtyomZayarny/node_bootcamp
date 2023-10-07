@@ -16,8 +16,20 @@ const checkID = (req, res, next, val) => {
       message: `No tour with id: ${id}`,
     });
   }
-  
+
   next();
+}
+
+const checkBody = (req, res, next) => {
+    const {body} = req;
+
+    if(!body?.name || !body?.price) {
+      return res.status(400).json({
+        status:'error',
+        message:'Bad Request, missing name or price'
+      })
+    }
+    next()
 }
 
   const getAllTours = (req, res) => { 
@@ -78,7 +90,8 @@ const checkID = (req, res, next, val) => {
     createTour,
     updateTour,
     deleteTour,
-    checkID
+    checkID,
+    checkBody
   }
 
   module.exports = tourController;
