@@ -7,7 +7,7 @@ const tourController = require('../controllers/tourController');
 tourRouter
   .route('/')
   .get(tourController.getAllTours)
-  .post(tourController.checkBody, tourController.createTour);
+  .post(tourController.createTour);
 
 tourRouter
   .route('/:id')

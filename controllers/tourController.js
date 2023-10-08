@@ -1,31 +1,5 @@
 const Tour = require('../models/tourModel');
 
-const checkID = (req, res, next, val) => {
-  const { id } = req.params;
-
-  const tour = Tour.find((el) => el.id === +id);
-  if (!tour) {
-    return res.status(404).json({
-      status: 'failed',
-      message: `No tour with id: ${id}`,
-    });
-  }
-
-  next();
-};
-
-const checkBody = (req, res, next) => {
-  const { body } = req;
-
-  if (!body.name || !body.price) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Bad Request, missing name or price',
-    });
-  }
-  next();
-};
-
 const getAllTours = (req, res) => {
   // res.status(200).json({
   //   status: 'success',
@@ -43,20 +17,20 @@ const getTour = (req, res) => {
   // });
 };
 
-const createTour = (req, res) => {
-  // const newId = tours[tours.length - 1].id + 1;
-  // const newTour = { id: newId, ...req.body };
-  // tours.push(newTour);
-  // fs.writeFile(
-  //   `${__dirname}/dev-data/tours-simple.json`,
-  //   JSON.stringify(tours),
-  //   () => {
-  //     res.status(201).json({
-  //       status: 'success',
-  //       data: newTour,
-  //     });
-  //   },
-  // );
+const createTour = async (req, res) => {
+  try {
+    const tour = await Tour.create(req.body);
+
+    res.status(201).json({
+      status: 'success',
+      data: { tour },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'Failed',
+      message: error,
+    });
+  }
 };
 
 const updateTour = (req, res) => {
@@ -81,8 +55,6 @@ const tourController = {
   createTour,
   updateTour,
   deleteTour,
-  checkID,
-  checkBody,
 };
 
 module.exports = tourController;
