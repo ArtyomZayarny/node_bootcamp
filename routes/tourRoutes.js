@@ -2,7 +2,7 @@ const tourRouter = require('express').Router();
 const tourController = require('../controllers/tourController');
 
 // Params middleware
-tourRouter.param('id', tourController.checkID);
+//tourRouter.param('id', tourController.checkID);
 
 tourRouter
   .route('/')
