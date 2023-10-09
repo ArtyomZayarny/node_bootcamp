@@ -69,11 +69,20 @@ const updateTour = async (req, res) => {
   }
 };
 
-const deleteTour = (req, res) => {
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
+const deleteTour = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Tour.findByIdAndDelete(id);
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'Failed',
+      message: error,
+    });
+  }
 };
 
 const tourController = {
