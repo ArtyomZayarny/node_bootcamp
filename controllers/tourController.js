@@ -143,12 +143,21 @@ const deleteTour = async (req, res) => {
   }
 };
 
+const aliasTopTours = async (req, res, next) => {
+  //?limit=5&sort=-ratingsAverage,price
+  req.query.limit = '5';
+  req.query.sort = '-ratingsAverage,price';
+  req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
+  next();
+};
+
 const tourController = {
   getAllTours,
   getTour,
   createTour,
   updateTour,
   deleteTour,
+  aliasTopTours,
 };
 
 module.exports = tourController;
