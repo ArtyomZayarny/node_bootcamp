@@ -4,26 +4,37 @@ const getAllTours = async (req, res) => {
   console.log('query', req.query);
   try {
     //Build query
+    // 1A Filtering
     const queryObj = { ...req.query };
     const exludedFields = ['page', 'sort', 'limit', 'fields'];
 
     //Filter fields in request
     exludedFields.forEach((el) => delete queryObj[el]);
 
-    // Advanced filtering
-    let queryStr = JSON.stringify(queryObj);
-    let replacedQuery = queryStr.replace(
+    // 1B Advanced filteringq
+    const queryStr = JSON.stringify(queryObj);
+    const replacedQuery = queryStr.replace(
       /\b(gte|gt|lte|lt)\b/g,
       (match) => `$${match}`,
     );
-
     // duration => 5
     // { difficulty: 'easy', duration: { $gte: 5 }}
 
     //price <= 1500
     // { difficulty: 'easy', price: { $lt: 1500 }}
+
+    let query = Tour.find(JSON.parse(replacedQuery));
+
+    // 2 Sorting
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(',').join(' ');
+      query = query.sort(sortBy);
+      //sort('price ratingAverage')
+    } else {
+      query = query.sort('-createdAt');
+    }
+
     //Execute query
-    const query = await Tour.find(JSON.parse(replacedQuery));
 
     const tours = await query;
 
