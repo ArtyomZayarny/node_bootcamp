@@ -1,7 +1,6 @@
 const Tour = require('../models/tourModel');
 
 const getAllTours = async (req, res) => {
-  console.log('query', req.query);
   try {
     //Build query
     // 1A Filtering
@@ -40,6 +39,21 @@ const getAllTours = async (req, res) => {
       query = query.select(fields);
     } else {
       query = query.select('-__v');
+    }
+
+    // 4 Pagination
+    //page=2&limit=10   1-10 - page1, 11-20 - page 2
+    const page = req.query.page * 1 || 1; // convert string to number;
+    const limit = req.query.limit * 1 || 100;
+    const skip = (page - 1) * limit;
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numTours = await Tour.countDocuments();
+      // check if page doesn't exist
+      if (skip >= numTours) {
+        throw Error("This page doesn't exist");
+      }
     }
 
     //Execute query
