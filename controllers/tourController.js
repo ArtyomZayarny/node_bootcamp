@@ -11,17 +11,17 @@ const getAllTours = async (req, res) => {
     exludedFields.forEach((el) => delete queryObj[el]);
 
     // Advanced filtering
-
     let queryStr = JSON.stringify(queryObj);
-    console.log('q', queryStr);
     let replacedQuery = queryStr.replace(
       /\b(gte|gt|lte|lt)\b/g,
       (match) => `$${match}`,
     );
 
-    // duration =>
+    // duration => 5
     // { difficulty: 'easy', duration: { $gte: 5 }}
 
+    //price <= 1500
+    // { difficulty: 'easy', price: { $lt: 1500 }}
     //Execute query
     const query = await Tour.find(JSON.parse(replacedQuery));
 
