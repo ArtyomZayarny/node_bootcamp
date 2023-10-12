@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -7,6 +8,7 @@ const tourSchema = new mongoose.Schema(
       required: [true, 'A tour must have a name'],
       unique: true,
     },
+    slug: String,
     duration: {
       type: Number,
       required: [true, 'A tour must have a duration'],
@@ -52,6 +54,10 @@ const tourSchema = new mongoose.Schema(
       select: false,
     },
     startDates: [Date],
+    secretTour: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -63,6 +69,48 @@ const tourSchema = new mongoose.Schema(
 //callback must be not arrow functions
 tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
+});
+
+// MongoDb middleware
+// There are four types of middleware in Mongoose
+// Document | Query | Aggregate | Model
+
+// Document on pre - runs  before event - .save()   .create() | !not insertMany()
+tourSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+//Multiple pre or post middleware
+// tourSchema.pre('save', function (next) {
+//   console.log('Will save document....');
+//   next();
+// });
+
+// //Post middleware
+// tourSchema.post('save', function (doc, nex) {
+//   console.log('doc', doc);
+//   next();
+// });
+
+//Query midleware
+//Exclude secretTour from result of find query Problem it's not work for finOne
+tourSchema.pre('find', function (next) {
+  this.find({ secretTour: { $ne: true } });
+  next();
+});
+
+//Exclude secretTour from result of every query that starts from 'find'
+tourSchema.pre(/^find/, function (next) {
+  this.find({ secretTour: { $ne: true } });
+  this.start = Date.now();
+  next();
+});
+
+tourSchema.post(/^find/, function (docs, next) {
+  console.log(docs);
+  console.log(`Query took ${Date.now() - this.start} milliseconds!`);
+  next();
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
