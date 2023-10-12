@@ -82,34 +82,44 @@ tourSchema.pre('save', function (next) {
 });
 
 //Multiple pre or post middleware
-// tourSchema.pre('save', function (next) {
-//   console.log('Will save document....');
-//   next();
-// });
-
-// //Post middleware
-// tourSchema.post('save', function (doc, nex) {
-//   console.log('doc', doc);
-//   next();
-// });
-
-//Query midleware
-//Exclude secretTour from result of find query Problem it's not work for finOne
-tourSchema.pre('find', function (next) {
-  this.find({ secretTour: { $ne: true } });
+tourSchema.pre('save', function (next) {
+  console.log('Will save document....');
   next();
 });
 
-//Exclude secretTour from result of every query that starts from 'find'
-tourSchema.pre(/^find/, function (next) {
-  this.find({ secretTour: { $ne: true } });
-  this.start = Date.now();
+//Post middleware
+tourSchema.post('save', function (doc, nex) {
+  console.log('doc', doc);
   next();
 });
+
+// Query midleware
+// Exclude secretTour from result of find query Problem it's not work for finOne
+// tourSchema.pre('find', function (next) {
+//   this.find({ secretTour: { $ne: true } });
+//   next();
+// });
+
+// // Exclude secretTour from result of every query that starts from 'find'
+// tourSchema.pre(/^find/, function (next) {
+//   this.find({ secretTour: { $ne: true } });
+//   this.start = Date.now();
+//   next();
+// });
 
 tourSchema.post(/^find/, function (docs, next) {
-  console.log(docs);
+  //console.log(docs);
   console.log(`Query took ${Date.now() - this.start} milliseconds!`);
+  next();
+});
+
+// Aggregation middleware
+//Exclude secretTour from aggregation
+
+tourSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({
+    $match: { secretTour: { $ne: true } },
+  });
   next();
 });
 
