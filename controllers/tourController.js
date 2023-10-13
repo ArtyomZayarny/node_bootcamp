@@ -1,5 +1,6 @@
 const Tour = require('../models/tourModel');
 const APIFeatures = require('../utils/ApiFeatures');
+const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 const getAllTours = catchAsync(async (req, res, next) => {
@@ -24,6 +25,9 @@ const getTour = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   const tour = await Tour.findById(id);
+  if (!tour) {
+    return next(new AppError(`Not tour found with that id = ${id}`, 404));
+  }
   res.status(200).json({
     status: 'success',
     data: { tour },
