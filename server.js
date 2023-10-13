@@ -10,16 +10,25 @@ const DB = process.env.MONGO_DB_CONNECT.replace(
   process.env.MONGO_DB_PASSWORD,
 );
 
-mongoose
-  .connect(DB)
-  .then(() => {
-    console.log('DB connection successful!');
-  })
-  .catch((err) => console.log('Error:', err));
+/* How to hanle Unhandled promise rejection 
+for example wrong connection to DB
+*/
+
+mongoose.connect(DB).then(() => {
+  console.log('DB connection successful!');
+});
+//  .catch((err) => console.log('Error:'));
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
+process.on('unhandledRejection', (err) => {
+  console.log('unhandledRejection', err.name, err.message);
+  console.log('unhandledRejection', 🎆 )
+  server.close( () =>{
+    process.exit(1)
+  })
+});
