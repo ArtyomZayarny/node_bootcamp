@@ -15,6 +15,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    passwordChangedAt: req.body.passwordChangedAt,
   });
 
   // Create token
@@ -44,7 +45,7 @@ exports.login = catchAsync(async (req, res, next) => {
   const isPasswordMatch = await user.isPasswordMatch(password, user.password);
 
   if (!user || !isPasswordMatch) {
-    return next(AppError('Incorrect email or password', 404));
+    return next(new AppError('Incorrect email or password', 404));
   }
 
   // 3 If everything ok send token to client
@@ -74,10 +75,21 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // Verification token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  console.log('decoded', decoded);
 
   // Check if user still exist
+  const user = await User.findById(decoded.id);
+  if (!user)
+    return next(
+      new AppError('The user belonging to this token no longer exist', 401),
+    );
 
-  // Check if user change password after the token was issued
+  // Check if user change password after the token was given to the user
+  if (user.changePasswordAfter(decoded.iat)) {
+    return next(
+      new AppError('User recently changed password! Please log in again', 401),
+    );
+  }
+  // grant access to protected route
+  req.user = user;
   next();
 });
