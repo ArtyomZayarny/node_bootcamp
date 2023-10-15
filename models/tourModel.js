@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const validator = require('validator');
-const User = require('./userModel');
+//const User = require('./userModel');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -161,6 +161,13 @@ tourSchema.pre(/^find/, function (next) {
   next();
 });
 
+tourSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'guides',
+    select: '-__v',
+  });
+  next();
+});
 tourSchema.post(/^find/, function (docs, next) {
   //console.log(docs);
   console.log(`Query took ${Date.now() - this.start} milliseconds!`);
