@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add nodemailer -D
+  /usr/local/bin/node /usr/local/bin/yarn add express-mongo-sanitize
 
 PATH: 
   /Users/artemzaiarnyi/tools/apache-maven/apache-maven-3.9.4/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Users/artemzaiarnyi/tools/apache-maven/apache-maven-3.9.4/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/artemzaiarnyi/Library/Android/sdk/emulator:/Users/artemzaiarnyi/Library/Android/sdk/platform-tools:/Users/artemzaiarnyi/Library/Android/sdk/emulator:/Users/artemzaiarnyi/Library/Android/sdk/platform-tools
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/artemzaiarnyi/Downloads/Learn/Node/nodejs-bootcamp/node_modules/.bin/eslint-config-prettier'
+  Error: EACCES: permission denied, unlink '/Users/artemzaiarnyi/Downloads/Learn/Node/nodejs-bootcamp/node_modules/.bin/extract-zip'
 
 npm manifest: 
   {
@@ -40,7 +40,8 @@ npm manifest:
       "morgan": "^1.10.0",
       "nodemon": "^3.0.1",
       "slugify": "^1.6.6",
-      "validator": "^13.11.0"
+      "validator": "^13.11.0",
+      "xss-clean": "^0.1.4"
     },
     "devDependencies": {
       "eslint": "^8.51.0",
@@ -52,6 +53,7 @@ npm manifest:
       "eslint-plugin-prettier": "^5.0.0",
       "eslint-plugin-react": "^7.33.2",
       "ndb": "^1.1.5",
+      "nodemailer": "^6.9.6",
       "prettier": "^3.0.3"
     },
     "engines": {
@@ -2294,6 +2296,11 @@ Lockfile:
     dependencies:
       minimist "^1.2.6"
   
+  mongo-sanitize@^1.1.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/mongo-sanitize/-/mongo-sanitize-1.1.0.tgz#01346b55f90716a42de3a1f957500a11c0752c36"
+    integrity sha512-6gB9AiJD+om2eZLxaPKIP5Q8P3Fr+s+17rVWso7hU0+MAzmIvIMlgTYuyvalDLTtE/p0gczcvJ8A3pbN1XmQ/A==
+  
   mongodb-connection-string-url@^2.6.0:
     version "2.6.0"
     resolved "https://registry.yarnpkg.com/mongodb-connection-string-url/-/mongodb-connection-string-url-2.6.0.tgz#57901bf352372abdde812c81be47b75c6b2ec5cf"
@@ -2403,6 +2410,11 @@ Lockfile:
     integrity sha512-MBnCQl83FTYOu7B4xWw10AW77AAh7ThCE1VXEv+JeWj8mSpGo+0bwgsV+b23ljBFwEM9OmsOv3kM27iUPPm84g==
     dependencies:
       nan "^2.14.0"
+  
+  nodemailer@^6.9.6:
+    version "6.9.6"
+    resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.6.tgz#5a38a2a4d9fb1e349542a138f9e2d5c760a663ed"
+    integrity sha512-s7pDtWwe5fLMkQUhw8TkWB/wnZ7SRdd9HRZslq/s24hlZvBP3j32N/ETLmnqTpmj4xoBZL9fOWyCIZ7r2HORHg==
   
   nodemon@^3.0.1:
     version "3.0.1"
@@ -3572,6 +3584,18 @@ Lockfile:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
     integrity sha512-1Dly4xqlulvPD3fZUQJLY+FUIeqN3N2MM3uqe4rCJftAvOjFa3jFGfctOgluGx4ahPbUCsZkmJILiP0Vi4T6lQ==
+  
+  xss-clean@^0.1.4:
+    version "0.1.4"
+    resolved "https://registry.yarnpkg.com/xss-clean/-/xss-clean-0.1.4.tgz#592b7f59cc52d39d4b8c397787243817639fb73d"
+    integrity sha512-4hArTFHYxrifK9VXOu/zFvwjTXVjKByPi6woUHb1IqxlX0Z4xtFBRjOhTKuYV/uE1VswbYsIh5vUEYp7MmoISQ==
+    dependencies:
+      xss-filters "1.2.7"
+  
+  xss-filters@1.2.7:
+    version "1.2.7"
+    resolved "https://registry.yarnpkg.com/xss-filters/-/xss-filters-1.2.7.tgz#59fa1de201f36f2f3470dcac5f58ccc2830b0a9a"
+    integrity sha512-KzcmYT/f+YzcYrYRqw6mXxd25BEZCxBQnf+uXTopQDIhrmiaLwO+f+yLsIvvNlPhYvgff8g3igqrBxYh9k8NbQ==
   
   xterm@^3.14.5:
     version "3.14.5"
