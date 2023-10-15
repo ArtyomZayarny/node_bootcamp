@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "prod": "NODE_ENV=production nodemon server.js",
-    "import:data": "node dev-data/import-dev-data.js --import",
-    "delete:data": "node dev-data/import-dev-data.js --delete",
+    "data:import": "node dev-data/import-dev-data.js --import",
+    "data:delete": "node dev-data/import-dev-data.js --delete",
     "debug": "ndb server.js"
   },
   "dependencies": {
