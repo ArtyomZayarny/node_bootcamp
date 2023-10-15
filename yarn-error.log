@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add express-mongo-sanitize
+  /usr/local/bin/node /usr/local/bin/yarn add hpp
 
 PATH: 
   /Users/artemzaiarnyi/tools/apache-maven/apache-maven-3.9.4/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Users/artemzaiarnyi/tools/apache-maven/apache-maven-3.9.4/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/artemzaiarnyi/Library/Android/sdk/emulator:/Users/artemzaiarnyi/Library/Android/sdk/platform-tools:/Users/artemzaiarnyi/Library/Android/sdk/emulator:/Users/artemzaiarnyi/Library/Android/sdk/platform-tools
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/artemzaiarnyi/Downloads/Learn/Node/nodejs-bootcamp/node_modules/.bin/extract-zip'
+  Error: EACCES: permission denied, unlink '/Users/artemzaiarnyi/Downloads/Learn/Node/nodejs-bootcamp/node_modules/.bin/eslint'
 
 npm manifest: 
   {
@@ -33,6 +33,7 @@ npm manifest:
       "bcryptjs": "^2.4.3",
       "dotenv": "^16.3.1",
       "express": "^4.18.2",
+      "express-mongo-sanitize": "^2.2.0",
       "express-rate-limit": "^7.1.1",
       "helmet": "^7.0.0",
       "jsonwebtoken": "^9.0.2",
@@ -1261,6 +1262,11 @@ Lockfile:
       signal-exit "^3.0.7"
       strip-final-newline "^3.0.0"
   
+  express-mongo-sanitize@^2.2.0:
+    version "2.2.0"
+    resolved "https://registry.yarnpkg.com/express-mongo-sanitize/-/express-mongo-sanitize-2.2.0.tgz#c8c2d45e137f213950f70bf586704e0db5cfe356"
+    integrity sha512-PZBs5nwhD6ek9ZuP+W2xmpvcrHwXZxD5GdieX2dsjPbAbH4azOkrHbycBud2QRU+YQF1CT+pki/lZGedHgo/dQ==
+  
   express-rate-limit@^7.1.1:
     version "7.1.1"
     resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-7.1.1.tgz#a9fe92d90a1091f0d2b1d07d97d6df83b412471b"
@@ -2295,11 +2301,6 @@ Lockfile:
     integrity sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==
     dependencies:
       minimist "^1.2.6"
-  
-  mongo-sanitize@^1.1.0:
-    version "1.1.0"
-    resolved "https://registry.yarnpkg.com/mongo-sanitize/-/mongo-sanitize-1.1.0.tgz#01346b55f90716a42de3a1f957500a11c0752c36"
-    integrity sha512-6gB9AiJD+om2eZLxaPKIP5Q8P3Fr+s+17rVWso7hU0+MAzmIvIMlgTYuyvalDLTtE/p0gczcvJ8A3pbN1XmQ/A==
   
   mongodb-connection-string-url@^2.6.0:
     version "2.6.0"

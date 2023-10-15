@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const xss = require('xss-clean');
+const hpp = require('hpp');
 const mongoSanitize = require('express-mongo-sanitize');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -35,6 +36,23 @@ app.use(mongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
+
+//Prevent parameter pollution for ex duplication
+// (?sort=duration&sort=price) its run an error
+// Problem: ist not works with (?duration=5&duration=9) output only duration=9
+// Resolve: need configuration with whitelist
+app.use(
+  hpp({
+    whitelist: [
+      'duration',
+      'ratingsQuantity',
+      'ratingsAverage',
+      'maxGroupSize',
+      'difficulty',
+      'price',
+    ],
+  }),
+);
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
