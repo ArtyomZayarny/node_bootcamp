@@ -24,7 +24,7 @@ const getAllTours = catchAsync(async (req, res, next) => {
 const getTour = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   // populate affect perfomace - create new query
-  const tour = await Tour.findById(id);
+  const tour = await Tour.findById(id).populate('reviews');
   if (!tour) {
     return next(new AppError(`Not tour found with that id = ${id}`, 404));
   }

@@ -117,6 +117,16 @@ tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
+// Virtual populate
+
+// Searching in Review model field tour that match with the _id
+//
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id',
+});
+
 // MongoDb middleware
 // There are four types of middleware in Mongoose
 // Document | Query | Aggregate | Model;
@@ -136,23 +146,23 @@ tourSchema.pre('save', function (next) {
 // });
 
 // Multiple pre or post middleware
-tourSchema.pre('save', function (next) {
-  console.log('Will save document....');
-  next();
-});
+// tourSchema.pre('save', function (next) {
+//   console.log('Will save document....');
+//   next();
+// });
 
 // Post middleware
-tourSchema.post('save', function (doc, next) {
-  console.log('doc', doc);
-  next();
-});
+// tourSchema.post('save', function (doc, next) {
+//   console.log('doc', doc);
+//   next();
+// });
 
 // Query midleware
 // Exclude secretTour from result of find query Problem it's not work for finOne
-tourSchema.pre('find', function (next) {
-  this.find({ secretTour: { $ne: true } });
-  next();
-});
+// tourSchema.pre('find', function (next) {
+//   this.find({ secretTour: { $ne: true } });
+//   next();
+// });
 
 // Exclude secretTour from result of every query that starts from 'find'
 tourSchema.pre(/^find/, function (next) {
@@ -168,21 +178,21 @@ tourSchema.pre(/^find/, function (next) {
   });
   next();
 });
-tourSchema.post(/^find/, function (docs, next) {
-  //console.log(docs);
-  console.log(`Query took ${Date.now() - this.start} milliseconds!`);
-  next();
-});
+// tourSchema.post(/^find/, function (docs, next) {
+//   //console.log(docs);
+//   console.log(`Query took ${Date.now() - this.start} milliseconds!`);
+//   next();
+// });
 
 // Aggregation middleware
 // Exclude secretTour from aggregation
 
-tourSchema.pre('aggregate', function (next) {
-  this.pipeline().unshift({
-    $match: { secretTour: { $ne: true } },
-  });
-  next();
-});
+// tourSchema.pre('aggregate', function (next) {
+//   this.pipeline().unshift({
+//     $match: { secretTour: { $ne: true } },
+//   });
+//   next();
+// });
 
 const Tour = mongoose.model('Tour', tourSchema);
 module.exports = Tour;
