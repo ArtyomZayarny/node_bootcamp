@@ -2,8 +2,11 @@ const Review = require('../models/reviewModel');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllReviews = catchAsync(async (req, res) => {
+  let filter = {};
+  if (req.params.tourId) filter = { tour: req.params.tourId };
+
   //Execute query
-  const reviews = await Review.find();
+  const reviews = await Review.find(filter);
 
   //Send response
   res.status(200).json({
