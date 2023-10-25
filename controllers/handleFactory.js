@@ -7,7 +7,9 @@ exports.deleteOne = (Model) =>
     const doc = await Model.findByIdAndDelete(id);
 
     if (!doc) {
-      return next(new AppError(`Not tour found with that id = ${id}`, 404));
+      return next(
+        new AppError(`Not document finded with that id = ${id}`, 404),
+      );
     }
 
     res.status(204).json({
