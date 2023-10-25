@@ -35,34 +35,9 @@ const getTour = catchAsync(async (req, res, next) => {
   });
 });
 
-const createTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.create(req.body);
+const createTour = factory.createOne(Tour);
 
-  res.status(201).json({
-    status: 'success',
-    data: { tour },
-  });
-});
-
-const updateTour = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const updatedTour = await Tour.findByIdAndUpdate(id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  if (!updatedTour) {
-    return next(new AppError(`Not tour found with that id = ${id}`, 404));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour: updatedTour,
-    },
-  });
-});
+const updateTour = factory.updateOne(Tour);
 
 const deleteTour = factory.deleteOne(Tour);
 

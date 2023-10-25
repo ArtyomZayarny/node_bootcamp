@@ -70,12 +70,7 @@ const getUser = (req, res) => {
   });
 };
 
-const updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route not yet defined',
-  });
-};
+const updateUser = factory.updateOne(User);
 
 const deleteMe = catchAsync(async (req, res, next) => {
   //Deactive user
