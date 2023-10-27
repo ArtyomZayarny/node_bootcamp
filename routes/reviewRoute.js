@@ -16,11 +16,8 @@ router
 
 router
   .route('/:id')
-  .delete(
-    // authController.protect,
-    // authController.restrictTo('user'),
-    reviewController.deleteReview,
-  )
+  .get(reviewController.getReview)
+  .delete(reviewController.deleteReview)
   .patch(reviewController.updateReview);
 
 module.exports = router;

@@ -59,16 +59,11 @@ const updateMe = catchAsync(async (req, res, next) => {
 const createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'This route not yet defined',
+    message: 'This route not defined! Please use /signup instead',
   });
 };
 
-const getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route not yet defined',
-  });
-};
+const getUser = factory.getOne(User);
 
 const updateUser = factory.updateOne(User);
 
