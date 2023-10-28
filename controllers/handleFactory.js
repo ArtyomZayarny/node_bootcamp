@@ -79,12 +79,14 @@ exports.getAll = (Model) =>
       .limitFields()
       .paginate();
 
-    const tours = await features.query;
+    const doc = await features.query.explain();
 
     //Send response
     res.status(200).json({
       status: 'success',
-      results: tours.length,
-      tours,
+      results: doc.length,
+      data: {
+        data: doc,
+      },
     });
   });
