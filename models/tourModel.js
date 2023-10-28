@@ -122,7 +122,8 @@ Pay attention to response explaine fields
                 "totalKeysExamined": 3,
                 "totalDocsExamined": 3, <--- must equal -to nReturned
 */
-tourSchema.index({ price: 1, ratingsAverage: -1 });
+//tourSchema.index({ price: 1, ratingsAverage: -1 });
+tourSchema.index({ slug: 1 });
 
 // Virtual properties !Not use in queris because it not exist in DB
 // callback must be not arrow functions
