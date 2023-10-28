@@ -77,6 +77,11 @@ const deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
+const getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
+
 const deleteUser = factory.deleteOne(User);
 
 const userController = {
@@ -86,6 +91,7 @@ const userController = {
   updateUser,
   deleteUser,
   updateMe,
+  getMe,
   deleteMe,
 };
 
