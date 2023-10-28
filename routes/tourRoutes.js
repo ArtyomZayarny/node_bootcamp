@@ -19,7 +19,7 @@ router
   .route('/monthly-plan/:year')
   .get(
     authController.protect,
-    authController.restrictTo('admin, lead-guide, guide'),
+    authController.restrictTo('admin', 'lead-guide', 'guide'),
     tourController.getMonthlyPlan,
   );
 
@@ -28,7 +28,7 @@ router
   .get(tourController.getAllTours)
   .post(
     authController.protect,
-    authController.restrictTo('admin, lead-guide'),
+    authController.restrictTo('admin', 'lead-guide'),
     tourController.createTour,
   );
 
