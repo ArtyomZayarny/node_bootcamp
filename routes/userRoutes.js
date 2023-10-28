@@ -4,22 +4,19 @@ const authController = require('../controllers/authController');
 
 userRouter.post('/signup', authController.signup);
 userRouter.post('/login', authController.login);
-
 userRouter.post('/forgotPassword', authController.forgotPassword);
 userRouter.patch('/resetPassword/:token', authController.resetPassword);
-userRouter.patch(
-  '/updatePassword/',
-  authController.protect,
-  authController.updatePassword,
-);
-userRouter.get(
-  '/me',
-  authController.protect,
-  userController.getMe,
-  userController.getUser,
-);
-userRouter.patch('/updateMe', authController.protect, userController.updateMe);
-userRouter.delete('/deleteMe', authController.protect, userController.deleteMe);
+
+// Protect all routes after this middleware
+userRouter.use(authController.protect);
+
+userRouter.patch('/updatePassword/', authController.updatePassword);
+userRouter.get('/me', userController.getMe, userController.getUser);
+userRouter.patch('/updateMe', userController.updateMe);
+userRouter.delete('/deleteMe', userController.deleteMe);
+
+//  Admin protect
+userRouter.use(authController.restrictTo('admin'));
 
 userRouter
   .route('/')
