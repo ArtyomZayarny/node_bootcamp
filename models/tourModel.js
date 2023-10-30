@@ -126,6 +126,8 @@ Pay attention to response explaine fields
 //tourSchema.index({ price: 1, ratingsAverage: -1 });
 tourSchema.index({ slug: 1 });
 
+tourSchema.index({ startLocation: '2dsphere' });
+
 // Virtual properties !Not use in queris because it not exist in DB
 // callback must be not arrow functions
 tourSchema.virtual('durationWeeks').get(function () {
