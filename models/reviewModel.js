@@ -75,6 +75,9 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
   }
 };
 
+// Prevent duplicate review 1 user can leave 1 review on tour
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 reviewSchema.post('save', async function () {
   console.log('save');
   // this points to current review
