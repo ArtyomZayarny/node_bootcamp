@@ -138,11 +138,11 @@ tourSchema.virtual('durationWeeks').get(function () {
 
 // Searching in Review model field tour that match with the _id
 //
-tourSchema.virtual('reviews', {
-  ref: 'Review',
-  foreignField: 'tour',
-  localField: '_id',
-});
+// tourSchema.virtual('reviews', {
+//   ref: 'Review',
+//   foreignField: 'tour',
+//   localField: '_id',
+// });
 
 // MongoDb middleware
 // There are four types of middleware in Mongoose

@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const APIFeatures = require('../utils/ApiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
@@ -54,8 +55,23 @@ exports.getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
     const { id } = req.params;
     // populate affect perfomace - create new query
-    let query = await Model.findById(id);
-    if (popOptions) query = query.populate(popOptions);
+    let query = Model.findById(id);
+    if (popOptions) {
+      query = Model.aggregate([
+        {
+          $match: { _id: new mongoose.Types.ObjectId(id) },
+        },
+        {
+          $lookup: {
+            from: popOptions.path,
+            foreignField: 'tour',
+            localField: '_id',
+            as: 'reviews_list',
+          },
+        },
+      ]);
+    }
+
     const doc = await query;
 
     if (!doc) {
