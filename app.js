@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -12,6 +13,11 @@ const userRouter = require('./routes/userRoutes');
 const reviewsRouter = require('./routes/reviewRoute');
 
 const app = express();
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+// Serving static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security request from same IP
 app.use(helmet());
@@ -55,13 +61,14 @@ app.use(
   }),
 );
 
-// Serving static files
-app.use(express.static(`${__dirname}/public`));
-
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
+});
+
+app.get('/', (req, res) => {
+  res.status(200).render('base');
 });
 
 // Mountaining routing

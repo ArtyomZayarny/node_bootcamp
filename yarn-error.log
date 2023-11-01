@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add hpp
+  /usr/local/bin/node /usr/local/bin/yarn add pug
 
 PATH: 
   /Users/artemzaiarnyi/tools/apache-maven/apache-maven-3.9.4/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Users/artemzaiarnyi/tools/apache-maven/apache-maven-3.9.4/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/artemzaiarnyi/Library/Android/sdk/emulator:/Users/artemzaiarnyi/Library/Android/sdk/platform-tools:/Users/artemzaiarnyi/Library/Android/sdk/emulator:/Users/artemzaiarnyi/Library/Android/sdk/platform-tools
@@ -25,8 +25,8 @@ npm manifest:
     "scripts": {
       "dev": "nodemon server.js",
       "prod": "NODE_ENV=production nodemon server.js",
-      "import:data": "node dev-data/import-dev-data.js --import",
-      "delete:data": "node dev-data/import-dev-data.js --delete",
+      "data:import": "node dev-data/import-dev-data.js --import",
+      "data:delete": "node dev-data/import-dev-data.js --delete",
       "debug": "ndb server.js"
     },
     "dependencies": {
@@ -36,6 +36,7 @@ npm manifest:
       "express-mongo-sanitize": "^2.2.0",
       "express-rate-limit": "^7.1.1",
       "helmet": "^7.0.0",
+      "hpp": "^0.2.3",
       "jsonwebtoken": "^9.0.2",
       "mongoose": "^7.6.0",
       "morgan": "^1.10.0",
@@ -1620,6 +1621,14 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/helmet/-/helmet-7.0.0.tgz#ac3011ba82fa2467f58075afa58a49427ba6212d"
     integrity sha512-MsIgYmdBh460ZZ8cJC81q4XJknjG567wzEmv46WOBblDb6TUd3z8/GhgmsM9pn8g2B80tAJ4m5/d3Bi1KrSUBQ==
   
+  hpp@^0.2.3:
+    version "0.2.3"
+    resolved "https://registry.yarnpkg.com/hpp/-/hpp-0.2.3.tgz#33bcc5fda713d2a962173c84f79a915a739b57bc"
+    integrity sha512-4zDZypjQcxK/8pfFNR7jaON7zEUpXZxz4viyFmqjb3kWNWAHsLEUmWXcdn25c5l76ISvnD6hbOGO97cXUI3Ryw==
+    dependencies:
+      lodash "^4.17.12"
+      type-is "^1.6.12"
+  
   http-errors@2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-2.0.0.tgz#b7774a1486ef73cf7667ac9ae0858c012c57b9d3"
@@ -2178,6 +2187,11 @@ Lockfile:
     version "4.1.1"
     resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
     integrity sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==
+  
+  lodash@^4.17.12:
+    version "4.17.21"
+    resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+    integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
   
   loose-envify@^1.4.0:
     version "1.4.0"
@@ -3337,7 +3351,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.20.2.tgz#1bf207f4b28f91583666cb5fbd327887301cd5f4"
     integrity sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==
   
-  type-is@~1.6.18:
+  type-is@^1.6.12, type-is@~1.6.18:
     version "1.6.18"
     resolved "https://registry.yarnpkg.com/type-is/-/type-is-1.6.18.tgz#4e552cd05df09467dcbc4ef739de89f2cf37c131"
     integrity sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==
