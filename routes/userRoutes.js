@@ -12,7 +12,11 @@ userRouter.use(authController.protect);
 
 userRouter.patch('/updatePassword/', authController.updatePassword);
 userRouter.get('/me', userController.getMe, userController.getUser);
-userRouter.patch('/updateMe', userController.updateMe);
+userRouter.patch(
+  '/updateMe',
+  userController.uploadUserPhoto,
+  userController.updateMe,
+);
 userRouter.delete('/deleteMe', userController.deleteMe);
 
 //  Admin protect

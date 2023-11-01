@@ -68,7 +68,10 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.status(200).render('base');
+  res.status(200).render('base', {
+    tour: 'The forest hiker',
+    user: 'Jonas',
+  });
 });
 
 // Mountaining routing
