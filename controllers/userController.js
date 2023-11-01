@@ -48,8 +48,6 @@ const getAllUsers = catchAsync(async (req, res) => {
 });
 
 const updateMe = catchAsync(async (req, res, next) => {
-  console.log(req.file);
-  console.log(req.body);
   // 1 Create error if user  post password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -70,6 +68,7 @@ const updateMe = catchAsync(async (req, res, next) => {
   // the user can't update role for example
   // Need to filter for body user
   const filteredBody = filterObj(req.body, 'name', 'email');
+  if (req.file) filteredBody.photo = req.file.filename;
 
   // 3 update user document
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
